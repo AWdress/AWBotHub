@@ -6,8 +6,9 @@
 
 1. [安装与部署](Installation.md)
 2. [首次使用](First-Run.md)
-3. [账号与通知](Accounts-and-Notifications.md)
-4. [插件使用](Plugins.md)
+3. [系统授权](系统授权.md)
+4. [账号与通知](Accounts-and-Notifications.md)
+5. [插件使用](Plugins.md)
 
 ### 服务与维护
 
@@ -24,7 +25,7 @@
 
 ---
 
-适用版本：**v2.0.2.8**
+适用版本：**v2.0.2.9**
 
 更新日期：2026-11-06
 

@@ -2,7 +2,7 @@
 
 AWBotHub 是一个通过网页管理 Telegram Bot、用户账号和插件的系统。这里从安装开始，说明每一步在哪里操作、应该填什么，以及出错后怎么查。
 
-> 本手册对应正式版 **v2.0.2.8**。截图使用演示数据，示例插件需另行安装。
+> 本手册对应正式版 **v2.0.2.9**。截图使用演示数据，示例插件需另行安装。
 
 系统通过 Docker 镜像安装，安装文件和版本信息见 [项目主页](https://github.com/AWdress/AWBotHub)。
 
@@ -14,9 +14,10 @@ AWBotHub 是一个通过网页管理 Telegram Bot、用户账号和插件的系�
 
 1. **安装系统** → [安装部署](Installation.md)：优先使用 Docker 一键安装，确认能打开登录页面。
 2. **设置管理员** → [首次使用](First-Run.md)：创建网页登录账号，了解菜单和必要设置。
-3. **接入需要的账号或通知** → [账号与通知](Accounts-and-Notifications.md)：先分清 Telegram 用户账号、Bot 和通知渠道。
-4. **安装并启用一个插件** → [插件使用](Plugins.md)：安装只是下载，完成配置并开启后才会运行。
-5. **查看运行结果** → [更新、备份与维护](Maintenance.md)：在日志和定时任务中确认是否执行成功。
+3. **选择插件使用范围** → [系统授权](系统授权.md)：内置插件可直接配置；使用更多插件前先填写激活码。
+4. **接入需要的账号或通知** → [账号与通知](Accounts-and-Notifications.md)：先分清 Telegram 用户账号、Bot 和通知渠道。
+5. **配置并启用一个插件** → [插件使用](Plugins.md)：安装只是下载，完成配置并开启后才会运行。
+6. **查看运行结果** → [更新、备份与维护](Maintenance.md)：在日志和定时任务中确认是否执行成功。
 
 AI、CookieCloud、浏览器仿真和开放 API 都是按需使用的功能。插件没有要求时，可以暂时不配置。
 
@@ -26,6 +27,7 @@ AI、CookieCloud、浏览器仿真和开放 API 都是按需使用的功能。�
 - **首页和插件可整理：** 首页右下角图标调整卡片顺序与显示；插件可设为常用、分组或切换紧凑列表。见[首次使用](First-Run.md)和[插件使用](Plugins.md)。
 - **系统助手：** 可排查日志、执行插件已注册的操作、准备配置或插件源码修改；修改需要管理员确认，敏感值不向助手开放。支持 Telegram 和企业微信配对使用。见[系统助手完整教程](System-Assistant.md)。
 - **企业微信文件回传：** 适配的插件可把生成的 Excel、CSV 等文件回复给原发送成员。见[账号与通知](Accounts-and-Notifications.md)和[插件开发](Plugin-Development.md)。
+- **系统授权：** 长期授权绑定单个安装，填写激活码后可使用插件市场和其他插件。只用内置的五个插件不需要授权，见[使用步骤](系统授权.md)。
 - **忘记密码：** 不用重装或删配置，按[密码重置步骤](Troubleshooting.md#3-管理员无法登录或忘记密码)处理。
 
 想先了解主要功能，可观看 [2 分 30 秒系统宣传片](https://github.com/AWdress/AWBotHub#系统宣传片)，无旁白，含配乐。
@@ -36,11 +38,12 @@ AI、CookieCloud、浏览器仿真和开放 API 都是按需使用的功能。�
 | --- | --- |
 | 从零安装、选择网络模式、修改端口、ARM64 部署 | [安装部署](Installation.md) |
 | 第一次登录、系统菜单、手机使用 | [首次使用](First-Run.md) |
+| 填写激活码、查看授权状态、更换或解除授权 | [系统授权](系统授权.md) |
 | 添加用户账号、Bot，配置 Telegram 或企业微信通知 | [账号与通知](Accounts-and-Notifications.md) |
 | 安装插件、配置插件、绑定账号、设置定时、查看报错 | [插件使用](Plugins.md) |
 | 添加 AI 服务、选择模型、查看调用和 Token 用量 | [AI 服务](AI-Service.md) |
 | 用助手排查问题、改配置、调用插件，接入 Telegram / 企业微信 | [系统助手](System-Assistant.md) |
-| 配置 CookieCloud、Chromium、CloakBrowser | [Cookie 与浏览器](Cookies-and-Browser.md) |
+| 配置 CookieCloud、CloakBrowser 和浏览器缓存 | [Cookie 与浏览器](Cookies-and-Browser.md) |
 | 更新镜像、备份、恢复、查看日志、排查内存占用 | [更新、备份与维护](Maintenance.md) |
 | 用脚本读取日志、管理插件、调用开放接口 | [开放 API](Open-API.md) |
 | 开发插件、配置表单、Vue 页面和系统能力 | [插件开发入门](Plugin-Development.md) |
@@ -59,6 +62,7 @@ AI、CookieCloud、浏览器仿真和开放 API 都是按需使用的功能。�
 
 - [ ] 已使用独立的 V2 数据目录，并确认数据会持久保存。
 - [ ] 已设置管理员账号和密码，不使用演示密码。
+- [ ] 如需使用内置范围之外的插件，已完成[系统授权](系统授权.md)。
 - [ ] 如需 Telegram 功能，已填写自己的 `API_ID` / `API_HASH`。
 - [ ] 按插件要求添加用户账号或 Bot，不需要的账号类型不必添加。
 - [ ] 插件已经完成配置、绑定正确账号并开启。
@@ -76,7 +80,7 @@ AI、CookieCloud、浏览器仿真和开放 API 都是按需使用的功能。�
 ## 版本与反馈
 
 - [安装与使用说明](../../README.md)
-- [当前手册对应版本：v2.0.2.8](https://github.com/AWdress/AWBotHub/releases/tag/v2.0.2.8)
+- [当前手册对应版本：v2.0.2.9](https://github.com/AWdress/AWBotHub/releases/tag/v2.0.2.9)
 - [更新日志](../../CHANGELOG.md)
 - [提交问题](https://github.com/AWdress/AWBotHub/issues)
 

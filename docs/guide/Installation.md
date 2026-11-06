@@ -1,6 +1,6 @@
 # 安装与部署
 
-本页按 AWBotHub **v2.0.2.8** 核对。第一次安装，建议选“一键安装”；已经熟悉 Docker Compose，再选手动部署。
+本页按 AWBotHub **v2.0.2.9** 核对。第一次安装，建议选“一键安装”；已经熟悉 Docker Compose，再选手动部署。
 
 > 每套系统使用独立的 `data`、`sessions`、`plugins` 目录。V1 的插件和配置不兼容，不能直接导入。
 
@@ -12,6 +12,7 @@
 - 服务器的 SSH 登录方式，以及 `root` 或 `sudo` 权限。
 - 一个没有被占用的网页端口，默认 `18001`。
 - 能从服务器访问 Docker 镜像仓库和 GitHub 的网络。
+- 如需使用内置范围之外的插件，准备绑定此安装的长期激活码，操作见[系统授权](系统授权.md)。只用内置插件不需要填写。
 
 镜像支持以下架构：
 
@@ -27,7 +28,7 @@
 uname -m
 ```
 
-同一条安装命令和同一个镜像标签都能用于 AMD64、ARM64，不用自己寻找另一种镜像。系统支持某个架构，不代表每个插件的第三方依赖都支持它；遇到插件依赖安装失败，请同时提供设备架构和错误日志。
+镜像地址为 `awdress/awbothub`。固定版本使用 `awdress/awbothub:v2.0.2.9`，跟随更新使用 `awdress/awbothub:latest`；两个标签都包含 AMD64、ARM64，Docker 会自动选择设备对应的架构。同一条安装命令也适用于这两种架构，不用自己寻找另一种镜像。系统支持某个架构，不代表每个插件的第三方依赖都支持它；遇到插件依赖安装失败，请同时提供设备架构和错误日志。
 
 ## 2. 一键安装：推荐新手使用
 
@@ -156,7 +157,7 @@ cd /opt/AWBotNest
 ```yaml
 services:
   awbotnest:
-    image: awdress/awbotnest_v2:latest
+    image: awdress/awbothub:latest
     container_name: AWBotNest_V2
     restart: always
     environment:
@@ -176,7 +177,7 @@ services:
 ```yaml
 services:
   awbotnest:
-    image: awdress/awbotnest_v2:latest
+    image: awdress/awbothub:latest
     container_name: AWBotNest_V2
     restart: always
     network_mode: host
@@ -222,8 +223,9 @@ docker compose ps
 
 ### 镜像里已包含什么
 
-- 系统网页、Python 运行环境、Playwright Chromium 和 Xvfb 已包含在镜像中，不用在容器里再安装整套系统。
-- **CloakBrowser 不打包进镜像。** 选择并保存该引擎后，系统会按需要将组件安装到持久化插件依赖目录，内核和数据库缓存保存在 `data/cloakbrowser`。下载与 Key 设置见 [Cookie 与浏览器](Cookies-and-Browser.md)。
+- 系统网页、Python 运行环境、浏览器所需系统库和 Xvfb 已包含在镜像中，不用在容器里再安装整套系统。
+- 浏览器服务统一使用 CloakBrowser，已包含组件 0.5.12 和当前架构内核，不需要首次另外安装组件、下载内核或填写 CloakBrowser Key。AMD64 支持 Stable 156.0.8078.47.1、Preview 156.0.8078.47.3，ARM64 支持 Stable 155.0.8059.39.2、Preview 156.0.8078.47.1；组件和内核随镜像更新，见 [Cookie 与浏览器](Cookies-and-Browser.md)。
+- 内置小姐姐视频、举牌、P站图片、Webhook 通知桥和插件开发探针；其他插件需要先完成[系统授权](系统授权.md)。
 - 插件业务依赖按插件要求安装。镜像支持 ARM64，不代表某个插件指定的全部依赖都有 ARM64 版本。
 - 系统助手可按权限检查已安装插件的源码、日志和公开配置。
 - 系统助手的独立沙箱是**可选的另外一项服务**，默认关闭，需要单独部署兼容的执行服务。普通状态查询、插件动作和公开配置修改不需要沙箱，详情见 [系统助手](System-Assistant.md)。

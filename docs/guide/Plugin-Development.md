@@ -1,6 +1,6 @@
 # 插件开发入门
 
-这一页面向会一点 Python、想写第一个 V2 插件的人，接口按 **v2.0.2.8** 核对。先完成一个不需要 Telegram、网络或额外依赖的小例子，再按需求接入其他能力。
+这一页面向会一点 Python、想写第一个 V2 插件的人，接口按 **v2.0.2.9** 核对。先完成一个不需要 Telegram、网络或额外依赖的小例子，再按需求接入其他能力。
 
 完整规范与详细接口另有公开文档，本文不重复所有参数：
 
@@ -178,7 +178,7 @@ ctx.schedule_cron("daily", daily, hour=9, minute=0)
 | HTTP 请求 | `ctx.http` | 继承系统代理；外部请求设置超时并处理失败。 |
 | AI 文字、识图、生图 | `ctx.ai.chat/vision/generate_image` | 使用管理员分配的能力与模型，不在插件里重复保存 AI Key。 |
 | 网站 Cookie | `ctx.cookies` | 元数据声明 `cookie_domains`，按域名读取，不能读取任意站点。 |
-| 浏览器任务 | `ctx.browser` | 复用系统设置、下载缓存与执行队列，使用完正确关闭资源。 |
+| 浏览器任务 | `ctx.browser` | 复用系统内置的 CloakBrowser、代理设置与执行队列，使用完正确关闭资源。 |
 | 本地 OCR | `ctx.ocr` | 按指南声明实际依赖，使用托管 OCR，避免长期占住模型内存。 |
 | 持久化数据 | `ctx.storage`、`ctx.data_dir` | 只写插件自己的命名空间和目录。 |
 | 短期交互状态 | `ctx.sessions` | 适合会话锁与临时状态，不要高频写数据库。 |
@@ -187,13 +187,15 @@ ctx.schedule_cron("daily", daily, hour=9, minute=0)
 
 企业微信文字、图片、文件和按钮事件通过 `ctx.on_wecom_message()` 接入统一回调；消息类型、成员隔离、媒体大小限制、回复方法见[企业微信统一消息回调](../PLUGIN_GUIDE.md#企业微信统一消息回调)。不要为同一个应用另搭一套不必要的回调入口。
 
-### CloakBrowser 的 Key 与资源释放
+### CloakBrowser 依赖与资源释放
 
-使用 `ctx.browser` 时跟随系统的浏览器设置。直接使用 CloakBrowser 的插件应正常声明自己的 `cloakbrowser` 依赖，但不要重复保存或分发系统 Key。
+系统镜像已包含 CloakBrowser 组件和配套内核，插件优先使用 `ctx.browser`。直接调用 CloakBrowser `launch*` 接口的插件仍须在元数据中声明 `cloakbrowser` 依赖，版本范围应包含镜像内置的 `0.5.12`；需要 GeoIP 功能时声明 `cloakbrowser[geoip]`。系统会复用兼容的内置组件与依赖，不另装一套浏览器。
 
-系统 Key 是唯一来源：插件传入的 `license_key`、`env` 中的 Key、容器环境变量和缓存授权文件都不能覆盖它。免费 Key 模式关闭或 Key 被删除后使用无 Key 免费内核；无 Key 模式不支持 `CLOAKBROWSER_BINARY_PATH` 自定义内核。
+AMD64 与 ARM64 镜像均包含 Stable、Preview 两个通道。AMD64 对应 `156.0.8078.47.1`、`156.0.8078.47.3`，ARM64 对应 `155.0.8059.39.2`、`156.0.8078.47.1`。直接调用 SDK 时可通过 `release_channel` 选择通道；指定 `browser_version` 时也必须是当前架构已包含的版本。请求不存在的通道或版本会报错，不会临时下载替代内核。具体版本见 [Cookie 与浏览器](Cookies-and-Browser.md)。
 
-有 Key 时系统按单会话排队。插件必须在 `finally` 中关闭浏览器，异步启动对应 `await browser.close()`；持久化上下文则关闭其 `context`。只关闭 Page 不会释放会话。不要在插件里轮换其他免费 Key，也不要用强杀代替正常关闭。
+不需要填写 CloakBrowser Key，也不要传入 `license_key`、设置自定义浏览器路径或在插件中运行安装、更新命令。组件与内核随系统镜像更新。GeoIP 数据库及插件自己的其他资源，仍可能需要按实际功能准备。
+
+浏览器任务按队列执行。插件必须在 `finally` 中关闭浏览器：异步接口使用 `await browser.close()`，同步接口使用 `browser.close()`；持久化上下文则关闭其 `context`。只关闭 Page 不会释放浏览器资源，也可能阻塞后续任务。不要用强杀代替正常关闭。
 
 ### 存储和 SQL 计算
 

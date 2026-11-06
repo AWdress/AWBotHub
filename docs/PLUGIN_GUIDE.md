@@ -717,17 +717,25 @@ description = await ctx.ai.vision("screenshot.png", "识别图片中的文字")
 generated = await ctx.ai.generate_image("一张蓝绿色的极简海报")
 ```
 
-`ctx.browser` 跟随系统选择的浏览器引擎。插件不应读取或保存系统的浏览器密钥，也不应自行安装
-系统浏览器引擎。
+`ctx.browser` 使用系统镜像内置的 CloakBrowser，复用代理设置与执行队列。插件不应自行安装或
+更新系统浏览器，也不应读取、保存或传入 CloakBrowser Key。
 
-插件声明 `cloakbrowser` 依赖并直接调用其 `launch*` 接口时，Key 统一使用系统设置，插件传入的
-`license_key` 或 `env` 中的 Key 不会覆盖系统设置；验证授权、查询席位和更新内核也使用同一把 Key。
-关闭免费 Key 模式或删除 Key 后使用无 Key 内核，不读取环境变量或缓存 `license.key`。
-无 Key 模式不支持 `CLOAKBROWSER_BINARY_PATH` 自定义内核，以免旧授权文件被原生内核读取。
-已启用 Key 的浏览器在系统内按单会话排队，运行、排队或等待席位释放时不能切换或停用 Key。
-插件必须在 `finally` 中调用 `browser.close()` 或 `context.close()`；只关闭 Page 不会释放浏览器会话，
-可能阻塞其他插件。未传 `proxy` 参数时自动继承系统代理；插件显式传入的 `proxy` 优先，传入
-`proxy=None`（或 `False`）可选择直连。
+直接调用 CloakBrowser `launch*` 接口时，插件仍须声明 `cloakbrowser` 依赖，版本范围必须包含
+镜像内置的 `0.5.12`；需要 GeoIP 时声明 `cloakbrowser[geoip]`。系统复用兼容的内置组件与依赖，
+不会另装一套浏览器。组件和内核随系统镜像更新，不通过 SDK 单独在线升级。
+
+AMD64 和 ARM64 均包含 Stable、Preview。AMD64 对应 `156.0.8078.47.1`、`156.0.8078.47.3`，
+ARM64 对应 `155.0.8059.39.2`、`156.0.8078.47.1`。`release_channel` 只能选择当前架构已包含的
+通道，`browser_version` 也只能指定已包含的版本；不兼容的请求会报错，不会下载替代版本。
+不要传入 `license_key` 或设置自定义浏览器路径。各架构的版本见
+[Cookie 与浏览器](guide/Cookies-and-Browser.md)。GeoIP 数据库及插件自己的其他
+资源仍可能需要按实际功能准备。
+
+浏览器任务按队列执行。插件必须在 `finally` 中关闭 Browser 或持久化 Context，异步接口需要
+`await browser.close()` 或 `await context.close()`；只关闭 Page 不会释放浏览器资源，可能阻塞
+其他插件。未传 `proxy` 参数时自动继承系统代理；插件显式传入的 `proxy` 优先，直接调用
+CloakBrowser SDK 时传入 `proxy=None`（或 `False`）可选择直连。使用 `ctx.browser` 时，
+`proxy=None` 表示继承系统设置，直连请明确传入 `proxy=False`。
 
 Cookie 接口是插件作用域内的只读能力，不提供 `ctx.cookies.set()`。`get(domain, path="/", names=None)` 返回 Cookie 对象列表，而非键值字典；`header(domain, path="/", names=None)` 返回请求头字符串。按域名、hostOnly、路径边界和有效期筛选，长路径优先；同名请求头使用优先匹配值。`playwright(domain, path="/")` 保留浏览器 Cookie 属性。CookieCloud 同步保留路径及过期等属性。旧 V2 键值缓存只能按根路径读取，需重新同步才能恢复原始路径信息。
 

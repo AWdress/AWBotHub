@@ -1,6 +1,6 @@
 services:
   awbotnest:
-    image: awdress/awbotnest_v2:latest
+    image: awdress/awbothub:latest
     container_name: AWBotNest_V2
     restart: always
     environment:

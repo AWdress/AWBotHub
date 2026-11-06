@@ -1,6 +1,6 @@
 # 更新、备份与日常维护
 
-本页按 **v2.0.2.8** 核对。Docker 命令默认：安装目录 `/opt/AWBotNest`、服务名 `awbotnest`、容器名 `AWBotNest_V2`。如果你安装时改过，请换成自己的值。
+本页按 **v2.0.2.9** 核对。Docker 命令默认：安装目录 `/opt/AWBotNest`、服务名 `awbotnest`、容器名 `AWBotNest_V2`。如果你安装时改过，请换成自己的值。
 
 ## 1. 先记住三个目录
 
@@ -112,6 +112,9 @@ docker compose up -d awbotnest
 1. 在 [版本发布页](https://github.com/AWdress/AWBotHub/releases) 阅读更新内容。
 2. 备份数据，尤其是重要插件的配置和会话。
 3. 确认原安装目录、网络模式、端口与镜像标签。
+4. 如需继续使用内置范围之外的插件，先准备激活码。未授权时其他插件会停止运行，文件、设置和数据会保留；更新后按[系统授权](系统授权.md)完成授权并检查插件状态。
+
+保留原 `data` 挂载，安装标识和授权状态才会随数据保留。普通重启、更新镜像或保留数据重建容器，不需要重新创建安装标识。
 
 ### 用一键安装脚本更新
 
@@ -146,10 +149,10 @@ docker compose -f docker-compose.yml -f docker-compose.awbotnest-runtime.yml up 
 
 ### 固定某个版本
 
-Compose 中 `image: awdress/awbotnest_v2:latest` 表示拉取 `latest` 标签。需要固定发布版本，可换成确实存在的标签，例如：
+Compose 中 `image: awdress/awbothub:latest` 表示拉取 `latest` 标签。需要固定发布版本，可换成版本标签，例如：
 
 ```yaml
-image: awdress/awbotnest_v2:v2.0.2.8
+image: awdress/awbothub:v2.0.2.9
 ```
 
 改完后再执行 `pull` 和 `up -d`。不要凭空填写不存在的版本号。回退镜像前，也要确认该旧版能够读取现有配置和数据；镜像回退不能代替数据备份。
@@ -237,7 +240,7 @@ docker inspect AWBotNest_V2 --format 'Memory={{.HostConfig.Memory}} MemorySwap={
 
 - `docker stats` 显示容器总占用，和进程 RSS 不会完全相同。
 - `RSS` 单位通常是 KiB，不是 MiB。
-- Chromium/CloakBrowser 执行网页验证时会产生额外内存峰值。
+- CloakBrowser 执行网页验证时会产生额外内存峰值。
 - 安装了插件依赖不等于它们全部一直运行；要结合进程与当时任务判断。
 
 Linux cgroup v2 环境还可只读查看：
