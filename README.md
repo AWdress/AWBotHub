@@ -1,12 +1,14 @@
 <div align="center">
   <img src="docs/assets/logo.png" alt="AWBotNest" width="120" />
 
-  # AWBotNest V2
+  # AWBotNest
 
   一个支持 Telegram Bot 与用户账号的插件管理系统。安装、配置、更新和运行插件都可以在网页里完成。
 </div>
 
-本仓库是 AWBotNest V2 的公开发布与说明仓库，提供安装脚本、使用手册、插件接口文档和版本说明，不提供系统核心源码。系统通过 Docker 镜像安装；插件仍可独立开发和安装。
+本仓库是 AWBotNest 的公开发布与说明仓库，提供安装脚本、使用手册、插件接口文档和版本说明，不提供系统核心源码。系统通过 Docker 镜像安装；插件仍可独立开发和安装。
+
+当前正式版为 **v2.0.2.8**，只维护当前 2.x 系列。原 V1 已停止维护，其配置、备份和插件与当前系列不兼容，请勿混用。说明与安装文件统一发布在本仓库的 `main` 分支。
 
 第一次使用可从 [详细使用手册](docs/guide/Home.md) 开始。遇到问题时，请先查看 [常见问题](#常见问题) 和运行日志。
 
@@ -16,7 +18,7 @@
 
 2 分 30 秒了解系统主要功能，含配乐，无旁白。
 
-https://github.com/user-attachments/assets/233c56ae-8c8a-4a96-bc52-0982ed8125e2
+https://github.com/user-attachments/assets/9320d4df-b1d0-4446-a92f-18ad44315cd7
 
 [下载 1080p 原片](https://github.com/AWdress/AWBotNest.Release/releases/download/v2.0.2.7/AWBotNest-Promo-1080p.mp4)
 
