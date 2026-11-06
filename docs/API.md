@@ -235,7 +235,7 @@ GET 用于企业微信验证地址，POST 接收签名校验和 AES 解密后的
 
 插件通过 `ctx.on_wecom_message()` 订阅文字、图片、文件或按钮事件，附件按需下载，
 无需单独回调地址。原有文字指令保持优先；未注册的插件不会收到消息。
-完整 SDK 和迁移示例见 [企业微信统一消息回调](PLUGIN_GUIDE.md#企业微信统一消息回调)。
+完整 SDK 和接入示例见 [企业微信统一消息回调](PLUGIN_GUIDE.md#企业微信统一消息回调)。
 
 ## 错误格式
 
@@ -322,6 +322,6 @@ curl -X POST \
 网络连接仍会暴露出口地址，反向代理访问日志应由部署者控制。
 
 服务端需先部署支持 `POST /api/system-installations/register` 和
-`GET /api/system-installations/count` 的新版热度服务；原插件接口与数据不变。
+`GET /api/system-installations/count` 的热度服务。
 当前沿用插件热度服务地址，公网部署建议经域名和 HTTPS 提供，不能把匿名标识视为鉴权凭据。
-旧安装在升级后陆续登记，不回填无法验证的历史数量。
+安装统计从首次有效登记开始，不回填无法验证的历史数量。

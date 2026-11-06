@@ -6,19 +6,13 @@
   一个支持 Telegram Bot 与用户账号的插件管理系统。安装、配置、更新和运行插件都可以在网页里完成。
 </div>
 
-本仓库是 AWBotHub 的公开发布与说明仓库，提供安装脚本、使用手册、插件接口文档和版本说明，不提供系统核心源码。系统通过 Docker 镜像安装；插件仍可独立开发和安装。
-
-AWBotHub 原名 AWBotNest，公开发布地址现为 `AWdress/AWBotHub`。名称调整不改变已有数据、插件接口或安装方式；Docker 镜像、容器名、目录和环境变量仍沿用原有标识，无需改名或搬迁。
-
-当前正式版为 **v2.0.2.8**，只维护当前 2.x 系列。原 V1 已停止维护，其配置、备份和插件与当前系列不兼容，请勿混用。说明与安装文件统一发布在本仓库的 `main` 分支。
+当前正式版为 **v2.0.2.8**。
 
 第一次使用可从 [详细使用手册](docs/guide/Home.md) 开始。遇到问题时，请先查看 [常见问题](#常见问题) 和运行日志。
 
-> 已部署的旧镜像可能仍从原仓库检查更新或提交系统问题，文档迁移不会自动修改正在运行的容器。后续镜像将使用本仓库作为发布入口；当前可在这里手动查看 [版本记录](https://github.com/AWdress/AWBotHub/releases) 和 [提交问题](https://github.com/AWdress/AWBotHub/issues)。Docker 镜像地址和已有数据目录不变。
-
 ## 系统宣传片
 
-2 分 30 秒了解系统主要功能，含配乐，无旁白。宣传片录制于更名前，功能演示仍适用。
+2 分 30 秒了解系统主要功能，含配乐，无旁白。
 
 https://github.com/user-attachments/assets/84ee9d34-f2c6-4883-8931-bebb4851f3e8
 
@@ -40,13 +34,11 @@ https://github.com/user-attachments/assets/84ee9d34-f2c6-4883-8931-bebb4851f3e8
 
 ## 安装运行（推荐 Docker）
 
-V2 请使用独立的数据目录，仅支持 V2 配置与备份。不要与 V1 共用数据目录。
+请使用独立的数据目录，只导入与当前系统兼容的配置和备份。
 
 Docker 镜像支持 Linux x86_64（`amd64`）和 ARM64（`arm64`），版本标签与 `latest` 使用同一组多架构镜像。64 位 ARM 服务器、NAS 和树莓派可使用；不支持 32 位 ARM 系统。插件的第三方依赖仍需支持对应架构。
 
-镜像使用 Nuitka 社区版编译系统核心。成品不包含核心 Python 源码、生成的 C 源码或编译工具；插件与配置不参与编译，仍可照常安装和修改。本仓库不能用于源码启动或构建系统镜像。编译不是密钥加密，敏感值仍应只保存在运行配置中。
-
-CloakBrowser 浏览器缓存默认保存在 `data/cloakbrowser`（容器内 `/app/data/cloakbrowser`），随 `data` 映射持久化，同版本完整缓存可在容器重建后复用。切换到此目录后首次使用仍可能需要下载；浏览器版本升级也可能下载新版本。可通过 `CLOAKBROWSER_CACHE_DIR` 覆盖目录，自定义目录需自行挂载。此设置不改变镜像内 Playwright Chromium 的安装位置。
+CloakBrowser 浏览器缓存默认保存在 `data/cloakbrowser`（容器内 `/app/data/cloakbrowser`），随 `data` 映射持久化，同版本完整缓存可在容器重建后复用。所需版本未缓存时会自动下载。可通过 `CLOAKBROWSER_CACHE_DIR` 覆盖目录，自定义目录需自行挂载。此设置不改变镜像内 Playwright Chromium 的安装位置。
 
 在 Linux 服务器执行下面这一条命令：
 
@@ -104,23 +96,7 @@ bridge 模式可同时设置 `AWBOTNEST_PORT`（宿主映射端口）和 `AWBOTN
 
 ## 想自己写插件？
 
-一个插件就是一个 `.py` 文件。最简单的样子：
-
-```python
-__plugin__ = {
-    "name": "我的功能", "id": "my_feature", "version": "1.0.0",
-    "scope": "bot",   # user=用户账号 / bot=机器人 / both=都用 / standalone=独立运行 / wecom=企业微信
-}
-
-async def setup(ctx):
-    @ctx.on_message(pattern=r"^/hello$")
-    async def handler(event):
-        await event.reply("收到")
-```
-
-写好后在「插件管理」点「上传插件」选这个文件，或放进 GitHub 仓库供市场安装。需要更丰富的设置界面时，也可以为插件提供 Vue 页面。
-
-详细教程见 **[插件开发指南](docs/PLUGIN_GUIDE.md)**，开放接口见 **[API 文档](docs/API.md)**，兼容要求见 **[插件公共契约](docs/SPEC.md)**。这些文档不依赖系统核心源码，可用于开发、发布和维护自己的插件。
+开发教程和示例见 [插件开发指南](docs/PLUGIN_GUIDE.md)，对接其他服务见 [API 文档](docs/API.md)。
 
 ## 常见问题
 

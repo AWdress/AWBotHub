@@ -193,7 +193,7 @@ curl --fail-with-body --show-error -X POST \
 
 `GET /api/v1/plugins/{plugin_id}/source` 可以读取入口源码，响应包含 `plugin_id`、`path`、`source`、`is_package`。
 
-`PUT /api/v1/plugins/{plugin_id}/source` **已因安全原因禁用，固定返回 403**。不要照搬旧教程调用它修改代码。需要更新时使用可信文件上传或商店安装流程。
+`PUT /api/v1/plugins/{plugin_id}/source` **不允许写入，固定返回 403**。更新插件代码请使用可信文件上传或商店安装流程。
 
 读取源码同样是高权限操作；返回内容可能包含业务逻辑或作者误写进代码的敏感值，不要直接公开保存。
 

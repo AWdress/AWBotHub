@@ -80,7 +80,7 @@ __plugin__ = {
 | `scope` | 是 | `standalone`、`bot`、`user`、`both`、`wecom` |
 | `description` | 否 | 面向用户的功能说明 |
 | `author` | 否 | 插件卡片中 GitHub 图标旁显示的作者名 |
-| `repository` | 否 | 源码所在的 GitHub 仓库，填写 `owner/repo` 或仓库根地址；旧安装核对更新来源时使用。从商店安装或更新的插件会自动记录来源。 |
+| `repository` | 否 | 源码所在的 GitHub 仓库，填写 `owner/repo` 或仓库根地址，用于核对更新来源。从商店安装或更新的插件会自动记录来源。 |
 | `tags` | 否 | 功能标签字符串列表；建议 1–4 个，每项不超过 24 个字符 |
 | `bot` | 否 | 指定 Bot ID；留空使用默认 Bot |
 | `requirements` | 否 | 启用前安装的 Python 依赖 |
@@ -335,9 +335,9 @@ Cron 字段沿用字符串类型，通过标准 `format` 显式声明。系统�
 }
 ```
 
-旧插件的 `type: "cron"` 仍兼容，但新插件应使用 `type: "string", format: "cron"`，这样服务端也能同时执行字符串类型校验。
+推荐使用 `type: "string", format: "cron"`，让服务端同时校验字符串类型和 Cron 格式。系统也支持 `type: "cron"`。
 
-自定义 Vue 配置页继续使用既有的 `host` prop，不需要调用新的 HTTP 接口。系统组件支持 Vue `v-model`，也兼容 `value` / `update`：
+自定义 Vue 配置页通过 `host` prop 使用系统组件，无需额外调用 HTTP 接口。组件支持 Vue `v-model` 和 `value` / `update`：
 
 ```vue
 <script setup>
@@ -391,7 +391,7 @@ async def setup(ctx):
 
 ### 系统助手调用动作与配置
 
-现有 `ctx.action("test", callback)` 和装饰器写法继续有效。系统助手可以查询并调用这些已注册动作，**旧插件无需增加 `agent_exposed=True` 或重新适配**；写操作仍由管理员逐次确认。这里只兼容系统动作，不会把任意插件 API、Webhook、私有方法或所有 Vue 页面按钮都直接交给助手。
+通过 `ctx.action("test", callback)` 或装饰器注册的系统动作，可以由系统助手查询和调用，不要求声明 `agent_exposed=True`；写操作由管理员逐次确认。助手只调用已注册的系统动作，不会执行任意插件 API、Webhook、私有方法或所有 Vue 页面按钮。
 
 建议为动作补充用途和参数规范，帮助助手准确理解参数；这些声明也用于校验原有按钮、管理接口和消息渠道的调用：
 
@@ -412,10 +412,10 @@ async def check_status(payload):
     return {"site": payload["site"], "status": "已签到"}
 ```
 
-- `description`：600 字以内的动作用途；显式声明 `agent_exposed=True` 时仍需填写。旧式注册无需为了兼容助手补充此项；用途不明时助手应询问，不能猜测业务含义。
+- `description`：600 字以内的动作用途；显式声明 `agent_exposed=True` 时必须填写，其他注册方式可选。用途不明时助手应询问，不能猜测业务含义。
 - `parameters`：根节点必须是 `object`。支持 `properties`、`required`、`items`、`enum`、数字上下限和字符串/数组长度；不支持 `$ref`、正则、组合 schema 或未声明参数。定义深度、字段数、参数大小均有限制。不传参数规范时保留原网页按钮的传参兼容性；助手侧只允许空对象回退，不会猜测其他参数。
 - `read_only`：仅查询、没有外部副作用才设为 `True`。默认 `False`；签到、发消息、打印、修改数据等都属于写入动作。不能为了省略确认把这些动作标为只读。
-- `agent_exposed`：保留现有可选声明，默认 `False`；不再作为系统助手发现旧动作的必要条件。它不授予写权限，也不代替本次确认。这不是公开网络接口。
+- `agent_exposed`：可选，默认 `False`；系统助手发现已注册动作不依赖此项。它不授予写权限，也不代替本次确认。这不是公开网络接口。
 
 只向助手提供必要业务参数，不要求它传入密码、Cookie、Token、Session 或系统密钥，不在参数默认值、说明和返回值中放这些内容。含敏感参数的动作不会通过助手调用。
 已声明参数的动作从按钮、管理接口、企业微信或助手调用时都会经过同一参数校验。动作仍由系统执行治理负责超时、排队和插件停用清理；助手排队时撤销授权或重载插件，旧调用会失效，不能借确认调用新注册的动作。
@@ -565,7 +565,7 @@ async def send_export(message):
 文件名已去除路径和控制字符，但插件仍需校验文件类型，不能直接执行文件或信任扩展名。
 下载失败、超限等异常由插件按业务处理；耗时网络和打印任务需使用异步调用，不要阻塞事件循环。
 
-### 重试、停用与迁移
+### 重试与停用
 
 系统先检查签名、解密内容、企业/应用身份和成员权限，再进入有界异步队列，HTTP 回调及时确认接收。
 系统启动、插件尚在恢复时，有效的用户回调返回可重试的 `503`，不提前确认并丢弃消息；地址验证不受影响。
@@ -578,10 +578,9 @@ async def send_export(message):
 解绑、停用或重载后，不再投递排队中的旧消息；旧消息对象也不能继续回复、发送文件或下载。
 后台任务使用 `ctx.create_task()`，不要自行创建无法随插件停用取消的任务。
 
-原先使用独立回调的插件，可将验签解密、读取附件和按钮分支迁移到此处理器，
-保留原有打印业务和任务状态，验证后再移除独立回调及其配置。
-已有 `ctx.action()`、Webhook、Telegram 事件和通知发送接口不变；插件未注册新处理器时行为不变。
-`reply_file()` 自系统 `v2.0.2.6` 提供，属于 Plugin API 2 的兼容新增，旧插件无需迁移。
+系统负责统一回调的验签、解密和消息分发；插件处理收到的消息、附件和按钮事件，并维护自己的业务状态。
+`ctx.action()`、Webhook、Telegram 事件和通知发送可与企业微信消息处理器分别使用。
+`reply_file()` 要求系统版本不低于 `v2.0.2.6`。
 使用此方法的插件应在元数据声明 `"min_platform_version": "2.0.2.6"`；
 回退到旧系统时需同时回退相应插件，不能将文件内容改用文字通知发送。
 
@@ -625,7 +624,7 @@ text = await ctx.ocr.classification(image_bytes)
 results = await ctx.ocr.classification_many([original, processed])
 ```
 
-现有插件继续使用 `ddddocr.DdddOcr()` 也会自动接入同一服务。OCR 模型只在独立工作
+`ddddocr.DdddOcr()` 自动接入同一服务。OCR 模型只在独立工作
 进程中加载，多个插件串行共用，空闲后自动退出；不要自行长期保存 ONNX Runtime 模型。
 
 `classification` 支持 `png_fix`、`probability` 和颜色过滤参数；兼容对象也支持
@@ -767,7 +766,7 @@ Bot 与 Premium 用户走原生富文本，普通用户的 HTML 表格降级为�
 
 插件可以把只读统计显示在首页，不需要制作 Vue 页面或修改插件清单。
 管理员在右下角的「设置仪表板」选择显示内容，在「调整卡片」中拖动和改变大小。
-未接入此接口的旧插件不受影响，也不会自动出现业务卡片。
+未注册仪表盘卡片的插件不会显示业务卡片。
 
 ### 最小可用示例
 
@@ -875,9 +874,9 @@ GET /api/dashboard/widgets/hello_world/overview
 并让 `asyncio.CancelledError` 继续传播，不能自己创建脱离系统追踪的任务。
 卡片大小、排序、显隐由系统前端分别保存电脑和手机布局，插件不应自行保存或覆盖它们。
 
-这是一项 Plugin API 2 的可选兼容新增，无数据迁移。回滚到不支持此接口的旧系统前，
-先回退调用新接口的插件；若必须同时支持新旧系统，可使用
-`if hasattr(ctx, "dashboard"):` 包裹注册，原插件任务和存储保持不变。
+此接口属于 Plugin API 2。插件需要支持未提供此接口的系统时，可用
+`if hasattr(ctx, "dashboard"):` 包裹注册；回退系统前应核对插件所需接口，
+必要时同时回退插件版本，保留业务数据。
 
 ## 配置页内部 API
 
@@ -895,7 +894,7 @@ async def setup(ctx):
 通过 `request.method`、`request.query`、`request.json` 读取请求；一个路径的不同 HTTP 方法由回调处理。
 插件必须启用并完成初始化后才能调用，停用时接口自动移除。
 内部 API 无需注册公开 Webhook，也不使用 Webhook 密钥；仅注册 `on_api` 的接口不会通过公开 Webhook 路径暴露。
-管理员 API 兼容调用已有 `on_webhook` 同名接口，但新插件应使用 `on_api`；两者同名时内部 API 优先。
+配置页内部接口应使用 `on_api` 注册。管理员 API 也可调用同名的 `on_webhook` 接口；两者同名时内部 API 优先。
 
 ## Webhook
 
