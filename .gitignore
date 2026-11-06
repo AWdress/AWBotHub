@@ -1,0 +1,21 @@
+# This checkout is for public documentation, not application source or data.
+.env
+.env.*
+*.key
+*.pem
+*.token
+*.session
+*.db
+*.sqlite3
+data/
+sessions/
+plugins/
+awbotnest/
+frontend/
+static/
+sandbox/
+tests/
+quality_tests/
+node_modules/
+.codex/
+__pycache__/
