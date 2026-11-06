@@ -8,7 +8,7 @@
 
 | 名称 | 是什么 | 在哪里使用 |
 | --- | --- | --- |
-| 管理员账号 | 登录 AWBotNest 网页的用户名和密码 | 系统登录页面，与 Telegram 无关 |
+| 管理员账号 | 登录 AWBotHub 网页的用户名和密码 | 系统登录页面，与 Telegram 无关 |
 | Telegram 用户账号 | 你平时在 Telegram 手机 App 中使用的账号，也常被叫作“人形账号” | 「账号管理」登录；供需要用户身份的插件使用 |
 | Telegram Bot | 通过 BotFather 创建的机器人，不是手机号账号 | 「系统设置 → 通知渠道」添加；用于 Bot 插件、发送通知 |
 | API_ID / API_HASH | Telegram 应用凭据，一组必须配套 | 「系统设置 → 账号与凭据 → Telegram 凭据」 |
@@ -23,7 +23,7 @@ API_ID 不是你的 Telegram 用户 ID；API_HASH 不是 Bot Token；管理员�
 
 1. 用自己的 Telegram 账号登录 [my.telegram.org](https://my.telegram.org)。
 2. 进入 **API development tools**，创建应用并取得同一应用下的 `api_id` 和 `api_hash`。Telegram 页面字段以实际显示为准。
-3. 打开 AWBotNest「系统设置 → 账号与凭据」，找到「Telegram 凭据」。
+3. 打开 AWBotHub「系统设置 → 账号与凭据」，找到「Telegram 凭据」。
 4. 在 `API_ID` 填数字，在 `API_HASH` 填对应字符串。不要带多余空格或引号。
 5. 点击「保存 Telegram 凭据」，按页面提示重启系统。
 6. 重启后进入「账号管理」，开始登录。
@@ -223,8 +223,8 @@ Bark 只是通知接收渠道，不会替代 Telegram 用户账号，也不会�
 
 ## 10. Webhook 入站和出站不要混淆
 
-- **入站：外部程序 → AWBotNest。** 在「系统设置 → 开放接口 → Webhook 入站」设置独立密钥，复制地址。该接口把外部文字交给系统通知服务，再发往通知渠道。
-- **出站：AWBotNest → 外部程序。** 后端支持 Webhook 通知渠道，但当前网页的新增菜单仅有 Telegram、企业微信和 Bark，没有通用 Webhook 新增表单。不要在网页中寻找并不存在的按钮。
+- **入站：外部程序 → AWBotHub。** 在「系统设置 → 开放接口 → Webhook 入站」设置独立密钥，复制地址。该接口把外部文字交给系统通知服务，再发往通知渠道。
+- **出站：AWBotHub → 外部程序。** 后端支持 Webhook 通知渠道，但当前网页的新增菜单仅有 Telegram、企业微信和 Bark，没有通用 Webhook 新增表单。不要在网页中寻找并不存在的按钮。
 
 入站地址形式为 `/api/v1/webhook?apikey=你的Webhook密钥`。密钥在 URL 中，不能公开截图或直接贴到公共 issue。它与开放 API Key 不同。请求格式及插件 Webhook 的区别见 [开放 API](Open-API.md)。
 

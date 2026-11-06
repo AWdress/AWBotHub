@@ -1,6 +1,6 @@
-# AWBotNest 2 开放 API
+# AWBotHub 开放 API
 
-AWBotNest 提供 `/api/v1` REST API，供自动化脚本、AI 助手和第三方系统管理插件、读写插件数据以及发送 Telegram 消息。
+AWBotHub 提供 `/api/v1` REST API，供自动化脚本、AI 助手和第三方系统管理插件、读写插件数据以及发送 Telegram 消息。
 
 本文只描述稳定的开放 API，不包含 Web 控制台使用的内部 `/api/*` 接口。
 
@@ -143,7 +143,7 @@ Content-Type: application/json
 ```json
 {
   "chat_id": -1001234567890,
-  "text": "Hello from AWBotNest",
+  "text": "Hello from AWBotHub",
   "sender": "bot",
   "session": "default",
   "parse_mode": "HTML"
@@ -290,7 +290,7 @@ curl -X POST \
 
 ## 系统累计安装统计
 
-“关于 AWBotNest”的累计安装量由独立热度服务汇总，包含首次安装和重新部署次数，
+“关于 AWBotHub”的累计安装量由独立热度服务汇总，包含首次安装和重新部署次数，
 不是独立系统数、用户数、镜像拉取次数或在线数量。
 
 - 本机 `GET /api/ui/about`（需管理员登录）中的 `installations` 返回

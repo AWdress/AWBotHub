@@ -109,7 +109,7 @@ docker compose up -d awbotnest
 
 ### 更新前
 
-1. 在 [版本发布页](https://github.com/AWdress/AWBotNest.Release/releases) 阅读更新内容。
+1. 在 [版本发布页](https://github.com/AWdress/AWBotHub/releases) 阅读更新内容。
 2. 备份数据，尤其是重要插件的配置和会话。
 3. 确认原安装目录、网络模式、端口与镜像标签。
 

@@ -1,6 +1,6 @@
 # 安装与部署
 
-本页按 AWBotNest **v2.0.2.8** 核对。第一次安装，建议选“一键安装”；已经熟悉 Docker Compose，再选手动部署。
+本页按 AWBotHub **v2.0.2.8** 核对。第一次安装，建议选“一键安装”；已经熟悉 Docker Compose，再选手动部署。
 
 > V1 与 V2 不要共用 `data`、`sessions`、`plugins` 目录。V1 的插件和配置不能当成 V2 的配置直接导入。旧系统先保留，用新目录部署 V2。
 
@@ -45,7 +45,7 @@ sudo apt-get install -y curl
 ### 第二步：执行安装命令
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AWdress/AWBotNest.Release/main/install.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/AWdress/AWBotHub/main/install.sh | sudo bash
 ```
 
 这条命令会下载并以管理员权限运行安装脚本。希望先检查脚本内容，可以先在 [GitHub 查看 install.sh](../../install.sh)，确认后再运行。
@@ -66,7 +66,7 @@ curl -fsSL https://raw.githubusercontent.com/AWdress/AWBotNest.Release/main/inst
 看到类似下面的信息，说明启动命令已完成：
 
 ```text
-AWBotNest 已启动。
+AWBotHub 已启动。
 镜像架构：linux/amd64
 网络模式：bridge
 访问地址：http://服务器IP:18001
@@ -118,14 +118,14 @@ host 模式没有“左边映射到右边”。系统监听 `19001`，浏览器�
 host 模式，监听 `19001`：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AWdress/AWBotNest.Release/main/install.sh | \
+curl -fsSL https://raw.githubusercontent.com/AWdress/AWBotHub/main/install.sh | \
   sudo env AWBOTNEST_MODE=host AWBOTNEST_PLATFORM_PORT=19001 bash
 ```
 
 bridge 模式，浏览器访问 `19001`，容器内仍监听 `18001`：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AWdress/AWBotNest.Release/main/install.sh | \
+curl -fsSL https://raw.githubusercontent.com/AWdress/AWBotHub/main/install.sh | \
   sudo env AWBOTNEST_MODE=bridge AWBOTNEST_PORT=19001 AWBOTNEST_PLATFORM_PORT=18001 bash
 ```
 
@@ -239,7 +239,7 @@ docker compose ps
 
 ## 6. 说明仓库和已有源码部署
 
-`AWdress/AWBotNest.Release` 只发布安装文件、使用说明和版本信息，不包含系统核心源码。下载这个说明仓库，不能用来启动系统；新安装请使用上面的 Docker 方式。
+`AWdress/AWBotHub` 只发布安装文件、使用说明和版本信息，不包含系统核心源码。下载这个说明仓库，不能用来启动系统；新安装请使用上面的 Docker 方式。
 
 已自行持有源码的管理员可以继续维护自己的本地部署。源码运行仍需自行处理 Python、Node.js、浏览器依赖和进程守护；本说明仓库不提供新的核心源码下载。迁移到 Docker 前，请先备份 `data`、`sessions` 和 `plugins`，并核对版本，不要让两个实例同时运行同一套 Telegram 会话。
 

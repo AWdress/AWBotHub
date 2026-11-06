@@ -1,4 +1,4 @@
-## AWBotNest V2
+## AWBotHub
 
 [使用手册首页](Home.md)
 
@@ -28,4 +28,4 @@
 
 更新日期：2026-11-06
 
-[版本发布](https://github.com/AWdress/AWBotNest.Release/releases) · [问题反馈](https://github.com/AWdress/AWBotNest.Release/issues)
+[版本发布](https://github.com/AWdress/AWBotHub/releases) · [问题反馈](https://github.com/AWdress/AWBotHub/issues)

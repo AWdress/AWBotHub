@@ -4,9 +4,10 @@
 
 这里记录每个版本给用户带来的新功能、改进和问题修复。
 
-## 发布地址调整（2026-11-06）
+## 名称与发布地址调整（2026-11-06）
 
-- 安装、使用手册、插件接口和版本说明迁至 [AWdress/AWBotNest.Release](https://github.com/AWdress/AWBotNest.Release)，公开仓库不再提供系统核心源码。
+- 系统更名为 AWBotHub，公开仓库地址改为 `AWdress/AWBotHub`。已有数据、插件接口、Docker 镜像、容器名、目录和环境变量保持兼容，无需重新安装或搬迁。
+- 安装、使用手册、插件接口和版本说明迁至 [AWdress/AWBotHub](https://github.com/AWdress/AWBotHub)，公开仓库不再提供系统核心源码。
 - Docker 镜像地址和数据目录不变。本次仅迁移说明与发布记录，没有发布新镜像；旧镜像的更新检查和反馈入口需在后续镜像更新后切换。
 
 ## v2.0.2.8

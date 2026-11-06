@@ -61,7 +61,7 @@ docker logs --tail 100 AWBotNest_V2
 
 优先检查反向代理：上游地址和端口、HTTPS 证书、路径转发、WebSocket 支持。
 
-尤其注意：反向代理也在独立 Docker 容器内时，它的 `127.0.0.1` 通常不是 AWBotNest 所在容器，也不是宿主机。不能因为两者在同一台服务器，就把两个容器里的 localhost 当成同一个地址。
+尤其注意：反向代理也在独立 Docker 容器内时，它的 `127.0.0.1` 通常不是 AWBotHub 所在容器，也不是宿主机。不能因为两者在同一台服务器，就把两个容器里的 localhost 当成同一个地址。
 
 网页能显示但 API 报 `502`、运行日志不实时更新，仍可能是反代配置问题。不要只用“首页打开了”判断转发全部正常。
 
@@ -71,7 +71,7 @@ docker logs --tail 100 AWBotNest_V2
 
 先确认：
 
-- 输入的是 AWBotNest 网页管理员账号，不是 Telegram 账号、服务器账号或 Bot 用户名。
+- 输入的是 AWBotHub 网页管理员账号，不是 Telegram 账号、服务器账号或 Bot 用户名。
 - 大小写、输入法、前后空格是否正确。
 - 是否访问了另一套实例或另一端口。
 - 最近是否导入其他实例的配置包，管理员凭据随配置改变。
@@ -89,7 +89,7 @@ docker logs --tail 100 AWBotNest_V2
 以下方法仅供系统所有者或获授权的服务器管理员使用：
 
 1. 先通过防火墙、反向代理访问限制等方式，让初始化期间只有你能访问网页。清空认证字段后，不能把初始化入口敞开给其他人。
-2. 停止 AWBotNest。Docker 示例：`docker stop AWBotNest_V2`。
+2. 停止 AWBotHub。Docker 示例：`docker stop AWBotNest_V2`。
 3. 找到实际挂载的 `data/config.json`，复制一份到安全位置，使用新的备份文件名，避免覆盖旧备份。
 4. 用文本编辑器打开原 `config.json`，**只将以下三个已有字段的值改为空字符串**，保留其他字段、逗号和 JSON 结构：
 

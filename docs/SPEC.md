@@ -1,4 +1,4 @@
-# AWBotNest V2 插件公共契约
+# AWBotHub 插件公共契约
 
 本文说明插件可以依赖的公开接口、数据边界和兼容要求，不是系统核心的开发规范。本仓库不公开核心实现；插件应使用 `ctx` 提供的接口，不依赖内部模块、数据库表或编译文件。
 
@@ -6,7 +6,7 @@
 
 ## 版本与入口
 
-当前正式 Plugin API 版本为 `2`。AWBotNest V2 使用 Telethon，不兼容 V1 的 Pyrogram、Kurigram 或内部 `schedulers` 接口。
+当前正式 Plugin API 版本为 `2`。AWBotHub 使用 Telethon，不兼容 V1 的 Pyrogram、Kurigram 或内部 `schedulers` 接口。
 
 插件支持两种形态：
 

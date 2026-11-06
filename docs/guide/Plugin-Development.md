@@ -29,7 +29,7 @@ __plugin__ = {
         "message": {
             "type": "string",
             "label": "消息内容",
-            "default": "你好，AWBotNest！",
+            "default": "你好，AWBotHub！",
             "required": True,
         },
         "run_once": {
@@ -43,7 +43,7 @@ __plugin__ = {
 
 async def setup(ctx):
     async def run(payload):
-        message = str(ctx.config.get("message", "你好，AWBotNest！"))
+        message = str(ctx.config.get("message", "你好，AWBotHub！"))
         ctx.log.info("示例消息：%s", message)
         return {"ok": True, "message": "已写入插件日志"}
 

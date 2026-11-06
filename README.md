@@ -1,26 +1,28 @@
 <div align="center">
-  <img src="docs/assets/logo.png" alt="AWBotNest" width="120" />
+  <img src="docs/assets/logo.png" alt="AWBotHub" width="120" />
 
-  # AWBotNest
+  # AWBotHub
 
   一个支持 Telegram Bot 与用户账号的插件管理系统。安装、配置、更新和运行插件都可以在网页里完成。
 </div>
 
-本仓库是 AWBotNest 的公开发布与说明仓库，提供安装脚本、使用手册、插件接口文档和版本说明，不提供系统核心源码。系统通过 Docker 镜像安装；插件仍可独立开发和安装。
+本仓库是 AWBotHub 的公开发布与说明仓库，提供安装脚本、使用手册、插件接口文档和版本说明，不提供系统核心源码。系统通过 Docker 镜像安装；插件仍可独立开发和安装。
+
+AWBotHub 原名 AWBotNest，公开发布地址现为 `AWdress/AWBotHub`。名称调整不改变已有数据、插件接口或安装方式；Docker 镜像、容器名、目录和环境变量仍沿用原有标识，无需改名或搬迁。
 
 当前正式版为 **v2.0.2.8**，只维护当前 2.x 系列。原 V1 已停止维护，其配置、备份和插件与当前系列不兼容，请勿混用。说明与安装文件统一发布在本仓库的 `main` 分支。
 
 第一次使用可从 [详细使用手册](docs/guide/Home.md) 开始。遇到问题时，请先查看 [常见问题](#常见问题) 和运行日志。
 
-> 已部署的旧镜像可能仍从原仓库检查更新或提交系统问题，文档迁移不会自动修改正在运行的容器。后续镜像将使用本仓库作为发布入口；当前可在这里手动查看 [版本记录](https://github.com/AWdress/AWBotNest.Release/releases) 和 [提交问题](https://github.com/AWdress/AWBotNest.Release/issues)。Docker 镜像地址和已有数据目录不变。
+> 已部署的旧镜像可能仍从原仓库检查更新或提交系统问题，文档迁移不会自动修改正在运行的容器。后续镜像将使用本仓库作为发布入口；当前可在这里手动查看 [版本记录](https://github.com/AWdress/AWBotHub/releases) 和 [提交问题](https://github.com/AWdress/AWBotHub/issues)。Docker 镜像地址和已有数据目录不变。
 
 ## 系统宣传片
 
-2 分 30 秒了解系统主要功能，含配乐，无旁白。
+2 分 30 秒了解系统主要功能，含配乐，无旁白。宣传片录制于更名前，功能演示仍适用。
 
 https://github.com/user-attachments/assets/84ee9d34-f2c6-4883-8931-bebb4851f3e8
 
-[下载 1080p 原片](https://github.com/AWdress/AWBotNest.Release/releases/download/v2.0.2.7/AWBotNest-Promo-1080p.mp4)
+[下载 1080p 原片](https://github.com/AWdress/AWBotHub/releases/download/v2.0.2.7/AWBotNest-Promo-1080p.mp4)
 
 ## 它能做什么
 
@@ -49,15 +51,15 @@ CloakBrowser 浏览器缓存默认保存在 `data/cloakbrowser`（容器内 `/ap
 在 Linux 服务器执行下面这一条命令：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AWdress/AWBotNest.Release/main/install.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/AWdress/AWBotHub/main/install.sh | sudo bash
 ```
 
-运行后会询问安装位置、网络模式和端口。默认使用 Docker bridge 模式，宿主访问端口和容器内系统监听端口都可以单独设置；选择 `host` 模式时不做端口映射，系统会直接监听你设置的端口。直接按回车会使用默认目录 `/opt/AWBotNest`、bridge 模式和端口 `18001`。脚本会自动检查并安装 Docker、按 Docker 服务器架构拉取对应镜像、创建持久化目录并启动 AWBotNest，ARM64 与 x86_64 使用同一条安装命令。
+运行后会询问安装位置、网络模式和端口。默认使用 Docker bridge 模式，宿主访问端口和容器内系统监听端口都可以单独设置；选择 `host` 模式时不做端口映射，系统会直接监听你设置的端口。直接按回车会使用默认目录 `/opt/AWBotNest`、bridge 模式和端口 `18001`。脚本会自动检查并安装 Docker、按 Docker 服务器架构拉取对应镜像、创建持久化目录并启动 AWBotHub，ARM64 与 x86_64 使用同一条安装命令。
 
 也可以用环境变量跳过交互，例如：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AWdress/AWBotNest.Release/main/install.sh | \
+curl -fsSL https://raw.githubusercontent.com/AWdress/AWBotHub/main/install.sh | \
   sudo -E env AWBOTNEST_MODE=host AWBOTNEST_PLATFORM_PORT=19001 bash
 ```
 

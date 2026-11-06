@@ -1,8 +1,8 @@
-# AWBotNest 2 插件开发指南
+# AWBotHub 插件开发指南
 
-AWBotNest 插件是可以独立安装、启用、停用和重载的功能单元。系统提供 Telegram、HTTP、Cookie、浏览器、AI、异步存储、Session、Telegram Delivery、通知、Webhook 和调度能力。
+AWBotHub 插件是可以独立安装、启用、停用和重载的功能单元。系统提供 Telegram、HTTP、Cookie、浏览器、AI、异步存储、Session、Telegram Delivery、通知、Webhook 和调度能力。
 
-AWBotNest 2 使用 Telethon，仅支持按 V2 规范开发的插件。
+AWBotHub 使用 Telethon，仅支持按 V2 规范开发的插件。
 
 ## 快速开始
 
@@ -242,7 +242,7 @@ Session lock 会记录等待及持锁时间，`ctx.delivery.send/edit` 会记录
 ### Interactive / 实时插件性能规范
 
 普通 handler 适合低频命令、后台业务和需要完整 Governance 的自动化；文字游戏、抢答、
-按钮互动和高频多人输入才应显式使用 `interactive=True`。Fast Path 只降低 AWBotNest 收到
+按钮互动和高频多人输入才应显式使用 `interactive=True`。Fast Path 只降低 AWBotHub 收到
 update 后的本地 dispatch 开销，不能消除 Telegram RPC、FloodWait 或插件自身慢操作。
 
 Session lock 只保护短小的内存状态变化：

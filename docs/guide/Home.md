@@ -1,12 +1,14 @@
-# AWBotNest 使用手册
+# AWBotHub 使用手册
 
-AWBotNest 是一个通过网页管理 Telegram Bot、用户账号和插件的系统。这里从安装开始，说明每一步在哪里操作、应该填什么，以及出错后怎么查。
+AWBotHub 是一个通过网页管理 Telegram Bot、用户账号和插件的系统。这里从安装开始，说明每一步在哪里操作、应该填什么，以及出错后怎么查。
+
+系统原名 AWBotNest，现更名为 AWBotHub，公开说明地址为 `AWdress/AWBotHub`。旧镜像、容器名、目录、环境变量和插件接口继续兼容，不需要为了改名重新安装。手册截图与宣传片录制于更名前，画面中的旧名称不影响操作。
 
 > 本手册对应当前正式版 **v2.0.2.8**，核对日期：**2026 年 11 月 6 日**。只维护当前 2.x 系列，原 V1 已停止维护。V1 的配置、备份和插件不兼容，请使用独立的数据目录，不要直接导入或混用。截图使用独立演示数据，不含真实账号、密钥或私人记录；示例插件不代表已内置这些业务功能。
 
 本仓库仅使用 `main` 分支，提供说明、安装文件和版本信息，系统通过 Docker 镜像安装。文档中的“V2”指当前系列的技术兼容范围，不代表预发行版。部分演示截图来自 v2.0.2.7，操作位置以当前系统界面为准。
 
-![AWBotNest V2 运行概览（演示数据）](images/status.jpg)
+![AWBotHub V2 运行概览（演示数据）](images/status.jpg)
 
 ## 第一次使用，从这里开始
 
@@ -28,7 +30,7 @@ AI、CookieCloud、浏览器仿真和开放 API 都是按需使用的功能。�
 - **企业微信文件回传：** 适配的插件可把生成的 Excel、CSV 等文件回复给原发送成员。见[账号与通知](Accounts-and-Notifications.md)和[插件开发](Plugin-Development.md)。
 - **忘记密码：** 不用重装或删配置，按[密码重置步骤](Troubleshooting.md#3-管理员无法登录或忘记密码)处理。
 
-想先了解主要功能，可观看 [2 分 30 秒系统宣传片](https://github.com/AWdress/AWBotNest.Release#系统宣传片)，无旁白，含配乐。
+想先了解主要功能，可观看 [2 分 30 秒系统宣传片](https://github.com/AWdress/AWBotHub#系统宣传片)，无旁白，含配乐。
 
 ## 你想做什么？
 
@@ -48,7 +50,7 @@ AI、CookieCloud、浏览器仿真和开放 API 都是按需使用的功能。�
 
 ## 先弄清这几个名字
 
-- **管理员账号**：用来登录 AWBotNest 网页，与 Telegram 账号无关。
+- **管理员账号**：用来登录 AWBotHub 网页，与 Telegram 账号无关。
 - **Telegram 用户账号**：平时在手机 Telegram 上使用的个人账号，需要手机号、验证码，以及可能存在的两步验证密码。
 - **Telegram Bot**：通过 `@BotFather` 创建的机器人，使用 Bot Token，不用手机号登录。
 - **插件**：提供签到、转发、提醒等具体功能的扩展。每个插件需要的账号、权限和参数可能不同。
@@ -76,8 +78,8 @@ AI、CookieCloud、浏览器仿真和开放 API 都是按需使用的功能。�
 ## 版本与反馈
 
 - [安装与使用说明](../../README.md)
-- [当前手册对应版本：v2.0.2.8](https://github.com/AWdress/AWBotNest.Release/releases/tag/v2.0.2.8)
+- [当前手册对应版本：v2.0.2.8](https://github.com/AWdress/AWBotHub/releases/tag/v2.0.2.8)
 - [更新日志](../../CHANGELOG.md)
-- [提交问题](https://github.com/AWdress/AWBotNest.Release/issues)
+- [提交问题](https://github.com/AWdress/AWBotHub/issues)
 
 反馈时提供系统版本、服务器架构、部署方式、插件名称和出错时间。附日志或截图前，先隐藏密钥、手机号、Cookie、聊天内容和服务器私有地址。
