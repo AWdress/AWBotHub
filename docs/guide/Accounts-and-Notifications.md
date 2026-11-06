@@ -28,7 +28,7 @@ API_ID 不是你的 Telegram 用户 ID；API_HASH 不是 Bot Token；管理员�
 5. 点击「保存 Telegram 凭据」，按页面提示重启系统。
 6. 重启后进入「账号管理」，开始登录。
 
-**正常现象：** 不再显示“Telegram 用户账号功能尚未启用”，可以看到「+ 登录新账号」。
+**正常现象：** 可以看到「+ 登录新账号」。
 
 **如果出现 `ApiIdInvalidError` 或 `The api_id/api_hash combination is invalid`：** Telegram 不认可这一对凭据。回到上述页面核对，不是验证码输错，也不是换个插件就能解决。改完后要保存并重启，不能只在输入框里改一下。
 
