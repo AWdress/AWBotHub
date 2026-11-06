@@ -18,7 +18,7 @@
 
 2 分 30 秒了解系统主要功能，含配乐，无旁白。
 
-https://github.com/user-attachments/assets/9320d4df-b1d0-4446-a92f-18ad44315cd7
+https://github.com/user-attachments/assets/84ee9d34-f2c6-4883-8931-bebb4851f3e8
 
 [下载 1080p 原片](https://github.com/AWdress/AWBotNest.Release/releases/download/v2.0.2.7/AWBotNest-Promo-1080p.mp4)
 
