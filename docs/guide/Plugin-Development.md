@@ -1,6 +1,6 @@
 # 插件开发入门
 
-这一页面向会一点 Python、想写第一个 V2 插件的人，接口按 **v2.0.2.9** 核对。先完成一个不需要 Telegram、网络或额外依赖的小例子，再按需求接入其他能力。
+这一页面向会一点 Python、想写第一个 V2 插件的人，接口按 **v2.0.2.10** 核对。先完成一个不需要 Telegram、网络或额外依赖的小例子，再按需求接入其他能力。
 
 完整规范与详细接口另有公开文档，本文不重复所有参数：
 
@@ -178,7 +178,7 @@ ctx.schedule_cron("daily", daily, hour=9, minute=0)
 | HTTP 请求 | `ctx.http` | 继承系统代理；外部请求设置超时并处理失败。 |
 | AI 文字、识图、生图 | `ctx.ai.chat/vision/generate_image` | 使用管理员分配的能力与模型，不在插件里重复保存 AI Key。 |
 | 网站 Cookie | `ctx.cookies` | 元数据声明 `cookie_domains`，按域名读取，不能读取任意站点。 |
-| 浏览器任务 | `ctx.browser` | 复用系统内置的 CloakBrowser、代理设置与执行队列，使用完正确关闭资源。 |
+| 浏览器任务 | `ctx.browser` | 复用系统内置的 CloakBrowser 和代理设置，支持多个会话同时运行；使用完正确关闭资源。 |
 | 本地 OCR | `ctx.ocr` | 按指南声明实际依赖，使用托管 OCR，避免长期占住模型内存。 |
 | 持久化数据 | `ctx.storage`、`ctx.data_dir` | 只写插件自己的命名空间和目录。 |
 | 短期交互状态 | `ctx.sessions` | 适合会话锁与临时状态，不要高频写数据库。 |
@@ -195,7 +195,7 @@ AMD64 与 ARM64 镜像均包含 Stable、Preview 两个通道。AMD64 对应 `15
 
 不需要填写 CloakBrowser Key，也不要传入 `license_key`、设置自定义浏览器路径或在插件中运行安装、更新命令。组件与内核随系统镜像更新。GeoIP 数据库及插件自己的其他资源，仍可能需要按实际功能准备。
 
-浏览器任务按队列执行。插件必须在 `finally` 中关闭浏览器：异步接口使用 `await browser.close()`，同步接口使用 `browser.close()`；持久化上下文则关闭其 `context`。只关闭 Page 不会释放浏览器资源，也可能阻塞后续任务。不要用强杀代替正常关闭。
+浏览器支持多个会话同时运行，插件任务自身的并发、超时和队列限制仍然有效。插件必须在 `finally` 中关闭浏览器：异步接口使用 `await browser.close()`，同步接口使用 `browser.close()`；持久化上下文则关闭其 `context`。只关闭 Page 不会释放浏览器资源，会继续占用系统内存。不要用强杀代替正常关闭。
 
 ### 存储和 SQL 计算
 

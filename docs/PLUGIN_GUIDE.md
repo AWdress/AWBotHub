@@ -717,7 +717,7 @@ description = await ctx.ai.vision("screenshot.png", "识别图片中的文字")
 generated = await ctx.ai.generate_image("一张蓝绿色的极简海报")
 ```
 
-`ctx.browser` 使用系统镜像内置的 CloakBrowser，复用代理设置与执行队列。插件不应自行安装或
+`ctx.browser` 使用系统镜像内置的 CloakBrowser，复用代理设置，支持多个会话同时运行。插件不应自行安装或
 更新系统浏览器，也不应读取、保存或传入 CloakBrowser Key。
 
 直接调用 CloakBrowser `launch*` 接口时，插件仍须声明 `cloakbrowser` 依赖，版本范围必须包含
@@ -731,9 +731,9 @@ ARM64 对应 `155.0.8059.39.2`、`156.0.8078.47.1`。`release_channel` 只能选
 [Cookie 与浏览器](guide/Cookies-and-Browser.md)。GeoIP 数据库及插件自己的其他
 资源仍可能需要按实际功能准备。
 
-浏览器任务按队列执行。插件必须在 `finally` 中关闭 Browser 或持久化 Context，异步接口需要
-`await browser.close()` 或 `await context.close()`；只关闭 Page 不会释放浏览器资源，可能阻塞
-其他插件。未传 `proxy` 参数时自动继承系统代理；插件显式传入的 `proxy` 优先，直接调用
+浏览器支持多个会话同时运行，插件任务自身的并发、超时和队列限制仍然有效。插件必须在 `finally` 中关闭 Browser 或持久化 Context，异步接口需要
+`await browser.close()` 或 `await context.close()`；只关闭 Page 不会释放浏览器资源，会继续占用
+系统内存。未传 `proxy` 参数时自动继承系统代理；插件显式传入的 `proxy` 优先，直接调用
 CloakBrowser SDK 时传入 `proxy=None`（或 `False`）可选择直连。使用 `ctx.browser` 时，
 `proxy=None` 表示继承系统设置，直连请明确传入 `proxy=False`。
 

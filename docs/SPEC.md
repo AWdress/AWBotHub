@@ -74,7 +74,7 @@ Vue 插件暴露 `./Config`，随插件发布构建好的 `frontend/dist/remoteE
 
 插件通过托管接口使用浏览器、AI 和 Cookie，不自行读取系统密钥或 Telegram Session。
 
-- `ctx.browser` 复用系统镜像内置的 CloakBrowser、代理设置与执行队列，不需要 CloakBrowser Key。直接使用 SDK 的插件仍须声明与内置 `0.5.12` 兼容的依赖；需要 GeoIP 时声明对应 extra。组件与内核随系统镜像更新，插件不要自行安装、在线更新或设置自定义浏览器路径；使用完正常关闭 Browser/Context。
+- `ctx.browser` 复用系统镜像内置的 CloakBrowser 和代理设置，支持多个会话同时运行，不需要 CloakBrowser Key。插件任务自身的并发、超时和队列限制仍然有效。直接使用 SDK 的插件仍须声明与内置 `0.5.12` 兼容的依赖；需要 GeoIP 时声明对应 extra。组件与内核随系统镜像更新，插件不要自行安装、在线更新或设置自定义浏览器路径；使用完正常关闭 Browser/Context。
 - 浏览器双通道按架构匹配：AMD64 的 Stable/Preview 分别为 `156.0.8078.47.1`、`156.0.8078.47.3`；ARM64 分别为 `155.0.8059.39.2`、`156.0.8078.47.1`。指定版本时不得混用其他架构的版本号。
 - AI 只使用管理员分配的模型与能力，插件不要另存系统服务地址或密钥。
 - Cookie 必须声明 `cookie_domains`，接口只读，按域名、路径和有效期筛选；不得绕过授权读取完整 Cookie 存储。
