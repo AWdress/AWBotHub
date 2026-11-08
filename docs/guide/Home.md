@@ -6,7 +6,7 @@ AWBotHub 是一个通过网页管理 Telegram Bot、用户账号和插件的系�
 
 系统通过 Docker 镜像安装，安装文件和版本信息见 [项目主页](https://github.com/AWdress/AWBotHub)。
 
-![AWBotHub V2 运行概览（演示数据）](images/status.jpg)
+![AWBotHub 运行概览（演示数据）](images/status.jpg)
 
 ## 第一次使用，从这里开始
 
@@ -24,7 +24,7 @@ AI、CookieCloud、浏览器仿真和开放 API 都是按需使用的功能。�
 ## 常用功能
 
 - **快捷打开：** 顶部“快捷打开”可以搜索插件和设置，电脑可按 `Ctrl + K` / `⌘ + K`。操作见[首次使用](First-Run.md)。
-- **首页和插件可整理：** 首页右下角图标调整卡片顺序与显示；插件可设为常用、分组或切换紧凑列表。见[首次使用](First-Run.md)和[插件使用](Plugins.md)。
+- **首页和插件可整理：** 首页右下角菜单可调整卡片位置、大小和显示；插件可设为常用、分组或切换紧凑列表。见[首次使用](First-Run.md)和[插件使用](Plugins.md)。
 - **系统助手：** 可排查日志、执行插件已注册的操作、准备配置或插件源码修改；修改需要管理员确认，敏感值不向助手开放。支持 Telegram 和企业微信配对使用。见[系统助手完整教程](System-Assistant.md)。
 - **企业微信文件回传：** 适配的插件可把生成的 Excel、CSV 等文件回复给原发送成员。见[账号与通知](Accounts-and-Notifications.md)和[插件开发](Plugin-Development.md)。
 - **系统授权：** 长期授权绑定单个安装，填写激活码后可使用插件市场和其他插件。只用内置的五个插件不需要授权，见[使用步骤](系统授权.md)。

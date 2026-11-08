@@ -303,7 +303,7 @@ async def reply_export(event, excel_bytes: bytes):
 
 ## 9. 发布到插件市场
 
-当前仓库界面接受名为 `AWBotNest-Plugins` 的公开 GitHub 仓库，V2 清单放在仓库根目录的 `manifest_v2.json`。
+插件可发布在公开 GitHub 仓库，清单放在仓库根目录的 `manifest_v2.json`。名称含 `AWBotHub-Plugins` 的仓库可被自动发现，也可在插件市场中手动添加 `owner/repo`。
 
 上面入门插件对应的最小清单：
 
