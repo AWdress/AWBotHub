@@ -2,7 +2,7 @@
 
 AWBotHub 是一个通过网页管理 Telegram Bot、用户账号和插件的系统。这里从安装开始，说明每一步在哪里操作、应该填什么，以及出错后怎么查。
 
-> 本手册对应正式版 **v2.0.2.10**。截图使用演示数据，示例插件需另行安装。
+> 本手册对应正式版 **v2.0.2.11**。截图使用演示数据，示例插件需另行安装。
 
 系统通过 Docker 镜像安装，安装文件和版本信息见 [项目主页](https://github.com/AWdress/AWBotHub)。
 
@@ -60,7 +60,7 @@ AI、CookieCloud、浏览器仿真和开放 API 都是按需使用的功能。�
 
 ## 第一次配置的最小清单
 
-- [ ] 已使用独立的 V2 数据目录，并确认数据会持久保存。
+- [ ] 已使用独立的数据目录，并确认数据会持久保存。
 - [ ] 已设置管理员账号和密码，不使用演示密码。
 - [ ] 如需使用内置范围之外的插件，已完成[系统授权](系统授权.md)。
 - [ ] 如需 Telegram 功能，已填写自己的 `API_ID` / `API_HASH`。
@@ -80,7 +80,7 @@ AI、CookieCloud、浏览器仿真和开放 API 都是按需使用的功能。�
 ## 版本与反馈
 
 - [安装与使用说明](../../README.md)
-- [当前手册对应版本：v2.0.2.10](https://github.com/AWdress/AWBotHub/releases/tag/v2.0.2.10)
+- [当前手册对应版本：v2.0.2.11](https://github.com/AWdress/AWBotHub/releases/tag/v2.0.2.11)
 - [更新日志](../../CHANGELOG.md)
 - [提交问题](https://github.com/AWdress/AWBotHub/issues)
 

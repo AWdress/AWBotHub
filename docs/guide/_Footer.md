@@ -2,4 +2,4 @@
 
 [返回使用手册首页](Home.md) · [常见问题](Troubleshooting.md) · [查看更新](https://github.com/AWdress/AWBotHub/releases) · [反馈问题](https://github.com/AWdress/AWBotHub/issues)
 
-本手册按 AWBotHub **v2.0.2.10** 更新于 **2026-11-08**。界面截图使用演示数据；分享日志、截图和备份前，请先隐藏密钥、Cookie、手机号及私人内容。
+本手册按 AWBotHub **v2.0.2.11** 更新于 **2026-11-08**。界面截图使用演示数据；分享日志、截图和备份前，请先隐藏密钥、Cookie、手机号及私人内容。

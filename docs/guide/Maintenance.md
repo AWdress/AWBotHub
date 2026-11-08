@@ -1,6 +1,6 @@
 # 更新、备份与日常维护
 
-本页按 **v2.0.2.10** 核对。Docker 命令默认：安装目录 `/opt/AWBotNest`、服务名 `awbotnest`、容器名 `AWBotNest_V2`。如果你安装时改过，请换成自己的值。
+本页按 **v2.0.2.11** 核对。Docker 命令默认：安装目录 `/opt/AWBotNest`、服务名 `awbotnest`、容器名 `AWBotNest_V2`。如果你安装时改过，请换成自己的值。
 
 ## 1. 先记住三个目录
 
@@ -152,7 +152,7 @@ docker compose -f docker-compose.yml -f docker-compose.awbotnest-runtime.yml up 
 Compose 中 `image: awdress/awbothub:latest` 表示拉取 `latest` 标签。需要固定发布版本，可换成版本标签，例如：
 
 ```yaml
-image: awdress/awbothub:v2.0.2.10
+image: awdress/awbothub:v2.0.2.11
 ```
 
 改完后再执行 `pull` 和 `up -d`。不要凭空填写不存在的版本号。回退镜像前，也要确认该旧版能够读取现有配置和数据；镜像回退不能代替数据备份。
