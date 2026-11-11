@@ -23,7 +23,7 @@ https://github.com/user-attachments/assets/84ee9d34-f2c6-4883-8931-bebb4851f3e8
 - **多账号**：在网页上用手机号登录你的 Telegram 账号，可同时管理多个，随时上线/下线。
 - **多 Bot 与路由**：可以接入多个 Telegram Bot，并为不同插件指定发送账号和通知渠道。
 - **AI 服务**：统一配置文字、识图和生图模型，支持自动识别 Chat Completions、Responses 和 Anthropic Messages；插件无需保存 API Key，也能限制每个插件可用的能力。
-- **系统助手**：查询状态和插件日志，按步骤调用已授权的插件动作；支持会话、确认、记忆、技能和预约任务。使用方法见[系统助手](docs/ASSISTANT.md)。
+- **系统助手**：查询状态和插件日志，按步骤调用已授权的插件动作；支持会话、确认、记忆、技能和预约任务。可切换三套人物，用气泡查看消息；助手设置集中在「系统设置 → 系统助手」。使用方法见[系统助手](docs/ASSISTANT.md)。
 - **Cookie 服务**：支持浏览器 CookieCloud 直连和远程 CookieCloud 定时同步，插件按授权域名读取。
 - **插件管理更完整**：支持版本更新、热重载、自检、运行诊断、日志查看和 Vue 配置界面。
 - **开放 API**：可以让自动化脚本或其他服务管理插件、读取状态和发送 Telegram 消息。
@@ -36,7 +36,7 @@ https://github.com/user-attachments/assets/84ee9d34-f2c6-4883-8931-bebb4851f3e8
 
 需要使用内置范围之外的插件，请先准备激活码。授权为长期授权，绑定一个系统安装；未授权时仍可使用上述内置插件。已有系统更新前请先备份，未授权的其他插件会停止运行，但设置和数据会保留，详见[系统授权](docs/guide/系统授权.md)。
 
-Docker 镜像为 `awdress/awbothub`，可用 `awdress/awbothub:v2.0.2.11` 固定版本，或使用 `awdress/awbothub:latest`。两个标签均支持 Linux x86_64（`amd64`）和 ARM64（`arm64`），Docker 会自动选择设备对应的架构，无需更换镜像名。64 位 ARM 服务器、NAS 和树莓派可使用；不支持 32 位 ARM 系统。插件的第三方依赖仍需支持对应架构。
+Docker 镜像为 `awdress/awbothub`。使用 `awdress/awbothub:latest` 跟随更新；需要固定版本时，从[发行版](https://github.com/AWdress/AWBotHub/releases)选择所需版本，把 `latest` 换成对应的镜像标签。Docker 会在 Linux x86_64（`amd64`）和 ARM64（`arm64`）中自动选择，无需更换镜像名。64 位 ARM 服务器、NAS 和树莓派可使用；不支持 32 位 ARM 系统。插件的第三方依赖仍需支持对应架构。
 
 镜像已包含 CloakBrowser 组件 **0.5.12** 和对应架构的浏览器内核，首次使用不需要另外安装组件、下载内核或填写 CloakBrowser Key。AMD64 包含 Stable **156.0.8078.47.1** 与 Preview **156.0.8078.47.3**，ARM64 包含 Stable **155.0.8059.39.2** 与 Preview **156.0.8078.47.1**。组件和内核随系统镜像更新；数据目录中已有的缓存会保留，不会因更新镜像自动清空。使用说明见 [Cookie 与浏览器](docs/guide/Cookies-and-Browser.md)。
 
