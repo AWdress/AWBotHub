@@ -1,6 +1,6 @@
 # 更新、备份与日常维护
 
-本页按 **v2.0.2.11** 核对。Docker 命令默认：安装目录 `/opt/AWBotNest`、服务名 `awbotnest`、容器名 `AWBotNest_V2`。如果你安装时改过，请换成自己的值。
+Docker 命令默认：安装目录 `/opt/AWBotNest`、服务名 `awbotnest`、容器名 `AWBotHub`。如果你安装时改过，请换成自己的值。
 
 ## 1. 先记住三个目录
 
@@ -62,7 +62,7 @@
 ```bash
 cd /opt/AWBotNest
 pwd
-docker inspect AWBotNest_V2 --format '{{json .Mounts}}'
+docker inspect AWBotHub --format '{{json .Mounts}}'
 ```
 
 确认宿主机的 `data`、`sessions`、`plugins` 分别挂载到 `/app/data`、`/app/sessions`、`/app/plugins`。如果实际数据不在此处，先找准目录，不要备份一个空目录就认为完成了。
@@ -101,7 +101,7 @@ docker compose config -q
 docker compose up -d awbotnest
 ```
 
-示例适用于新服务器，或已经确认没有同名容器、端口冲突的环境。**仅停止旧容器不会释放 `AWBotNest_V2` 这个容器名称。** 同机恢复时，应先停用旧实例，再为恢复目录中的 Compose 设置不同的 `container_name`，并核对端口；如果要沿用旧名称，则先在完整备份后妥善处理旧容器。不要只复制目录就直接启动，更不要让新旧实例同时运行同一套账号会话。
+示例适用于新服务器，或已经确认没有同名容器、端口冲突的环境。**仅停止旧容器不会释放 `AWBotHub` 这个容器名称。** 同机恢复时，应先停用旧实例，再为恢复目录中的 Compose 设置不同的 `container_name`，并核对端口；如果要沿用旧名称，则先在完整备份后妥善处理旧容器。不要只复制目录就直接启动，更不要让新旧实例同时运行同一套账号会话。
 
 跨 AMD64、ARM64 迁移时，Python 原生依赖和浏览器缓存不一定能直接复用。先保留原备份，再检查日志并按实际架构重新准备相应依赖，不能只复制一个浏览器可执行文件就认为兼容。
 
@@ -147,15 +147,15 @@ docker compose -f docker-compose.yml -f docker-compose.awbotnest-runtime.yml up 
 
 同理，`ps`、`stop`、`start` 等命令也应带相同的 `-f` 文件列表。Docker 不会因为这个文件放在目录里，就自动识别它作为默认 override。
 
-### 固定某个版本
+### 默认跟随最新正式版
 
-Compose 中 `image: awdress/awbothub:latest` 表示拉取 `latest` 标签。需要固定发布版本，可换成版本标签，例如：
+默认 Compose 使用以下镜像，一键安装也使用同一标签：
 
 ```yaml
-image: awdress/awbothub:v2.0.2.11
+image: awdress/awbothub:latest
 ```
 
-改完后再执行 `pull` 和 `up -d`。不要凭空填写不存在的版本号。回退镜像前，也要确认该旧版能够读取现有配置和数据；镜像回退不能代替数据备份。
+有新版本时，仍需执行 `pull` 和 `up -d` 才会更新，容器不会自动替换正在运行的镜像。更新前做好备份；需要回退时，先确认目标版本能够读取现有配置和数据。镜像回退不能代替数据备份。
 
 ## 5. 新版本检查与通知
 
@@ -182,13 +182,13 @@ docker compose restart awbotnest
 查看最近 100 条容器输出：
 
 ```bash
-docker logs --tail 100 AWBotNest_V2
+docker logs --tail 100 AWBotHub
 ```
 
 持续查看新日志：
 
 ```bash
-docker logs --tail 100 -f AWBotNest_V2
+docker logs --tail 100 -f AWBotHub
 ```
 
 按 `Ctrl+C` 只是结束本次日志查看，不会停止容器。
@@ -233,9 +233,9 @@ docker logs --tail 100 -f AWBotNest_V2
 先区分是 Python 主进程、浏览器进程还是文件缓存，不要看到 Docker 总数就直接判断“某插件泄漏”。
 
 ```bash
-docker stats AWBotNest_V2 --no-stream
-docker top AWBotNest_V2 -eo pid,ppid,rss,comm
-docker inspect AWBotNest_V2 --format 'Memory={{.HostConfig.Memory}} MemorySwap={{.HostConfig.MemorySwap}}'
+docker stats AWBotHub --no-stream
+docker top AWBotHub -eo pid,ppid,rss,comm
+docker inspect AWBotHub --format 'Memory={{.HostConfig.Memory}} MemorySwap={{.HostConfig.MemorySwap}}'
 ```
 
 - `docker stats` 显示容器总占用，和进程 RSS 不会完全相同。
@@ -246,7 +246,7 @@ docker inspect AWBotNest_V2 --format 'Memory={{.HostConfig.Memory}} MemorySwap={
 Linux cgroup v2 环境还可只读查看：
 
 ```bash
-docker exec AWBotNest_V2 sh -c 'grep -E "^(anon|file|inactive_file|active_file|shmem|kernel|slab) " /sys/fs/cgroup/memory.stat'
+docker exec AWBotHub sh -c 'grep -E "^(anon|file|inactive_file|active_file|shmem|kernel|slab) " /sys/fs/cgroup/memory.stat'
 ```
 
 若提示文件不存在，可能是旧版 cgroup，不要为此修改或删除系统文件。
@@ -256,7 +256,7 @@ docker exec AWBotNest_V2 sh -c 'grep -E "^(anon|file|inactive_file|active_file|s
 先看容器是否重启：
 
 ```bash
-docker inspect AWBotNest_V2 --format 'StartedAt={{.State.StartedAt}} RestartCount={{.RestartCount}} OOMKilled={{.State.OOMKilled}}'
+docker inspect AWBotHub --format 'StartedAt={{.State.StartedAt}} RestartCount={{.RestartCount}} OOMKilled={{.State.OOMKilled}}'
 ```
 
 如果宿主机有 systemd，可用 `journalctl -k` 查看对应时段的内核日志，寻找 `oom`、`Killed process`、`Memory cgroup out of memory`。容器重启后的 `OOMKilled=false`，不能单独排除上一轮运行发生过 OOM。

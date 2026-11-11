@@ -1,6 +1,6 @@
 # 安装与部署
 
-本页按 AWBotHub **v2.0.2.11** 核对。第一次安装，建议选“一键安装”；已经熟悉 Docker Compose，再选手动部署。
+第一次安装，建议选“一键安装”；已经熟悉 Docker Compose，再选手动部署。
 
 > 每套系统使用独立的 `data`、`sessions`、`plugins` 目录。V1 的插件和配置不兼容，不能直接导入。
 
@@ -28,7 +28,7 @@
 uname -m
 ```
 
-镜像地址为 `awdress/awbothub`。固定版本使用 `awdress/awbothub:v2.0.2.11`，跟随更新使用 `awdress/awbothub:latest`；两个标签都包含 AMD64、ARM64，Docker 会自动选择设备对应的架构。同一条安装命令也适用于这两种架构，不用自己寻找另一种镜像。系统支持某个架构，不代表每个插件的第三方依赖都支持它；遇到插件依赖安装失败，请同时提供设备架构和错误日志。
+默认镜像为 `awdress/awbothub:latest`，一键安装会拉取最新正式版。该标签包含 AMD64、ARM64，Docker 会自动选择设备对应的架构。同一条安装命令也适用于这两种架构，不用自己寻找另一种镜像。系统支持某个架构，不代表每个插件的第三方依赖都支持它；遇到插件依赖安装失败，请同时提供设备架构和错误日志。
 
 ## 2. 一键安装：推荐新手使用
 
@@ -82,8 +82,8 @@ AWBotHub 已启动。
 
 ### 网页打不开时先查这三处
 
-1. 在服务器执行 `docker ps -a --filter name=AWBotNest_V2`，看容器是否在运行。
-2. 执行 `docker logs --tail 100 AWBotNest_V2`，看是否有启动错误。
+1. 在服务器执行 `docker ps -a --filter name=AWBotHub`，看容器是否在运行。
+2. 执行 `docker logs --tail 100 AWBotHub`，看是否有启动错误。
 3. 检查服务器防火墙、云厂商安全组、NAS 防火墙，是否允许你当前网络访问所选端口。
 
 不要为了排错直接关闭全部防火墙。公网部署建议使用 HTTPS 反向代理，并限制管理入口的访问范围。
@@ -158,7 +158,7 @@ cd /opt/AWBotNest
 services:
   awbotnest:
     image: awdress/awbothub:latest
-    container_name: AWBotNest_V2
+    container_name: AWBotHub
     restart: always
     environment:
       TZ: Asia/Shanghai
@@ -178,7 +178,7 @@ services:
 services:
   awbotnest:
     image: awdress/awbothub:latest
-    container_name: AWBotNest_V2
+    container_name: AWBotHub
     restart: always
     network_mode: host
     environment:

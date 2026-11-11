@@ -1,7 +1,7 @@
 services:
   awbotnest:
     image: awdress/awbothub:latest
-    container_name: AWBotNest_V2
+    container_name: AWBotHub
     restart: always
     environment:
       - TZ=Asia/Shanghai

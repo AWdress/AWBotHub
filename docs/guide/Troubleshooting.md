@@ -2,7 +2,7 @@
 
 先看错误出现在哪一步，再查对应部分。不要一遇到问题就删除账号、清空数据或重新安装，这些操作可能让原本容易定位的问题变成数据恢复问题。
 
-本页命令中的容器名是默认的 `AWBotNest_V2`。改过容器名、端口或目录的，请换成自己的实际值。涉及密钥、会话、Cookie 的文件，不要上传到公开 issue。
+本页命令中的容器名是默认的 `AWBotHub`。改过容器名、端口或目录的，请换成自己的实际值。涉及密钥、会话、Cookie 的文件，不要上传到公开 issue。
 
 ## 1. 提问前先收集什么
 
@@ -17,7 +17,7 @@
 查看最近容器日志：
 
 ```bash
-docker logs --tail 150 AWBotNest_V2
+docker logs --tail 150 AWBotHub
 ```
 
 截图前遮住手机号、用户名中的隐私、Bot Token、API_HASH、API Key、代理密码、Cookie 和验证码。不要提供完整 `config.json`、`sessions`、配置包或完整备份。
@@ -29,8 +29,8 @@ docker logs --tail 150 AWBotNest_V2
 ### 先看容器是否运行
 
 ```bash
-docker ps -a --filter name=AWBotNest_V2
-docker logs --tail 100 AWBotNest_V2
+docker ps -a --filter name=AWBotHub
+docker logs --tail 100 AWBotHub
 ```
 
 - 显示 `Up`：容器在运行，继续检查地址、端口和网络。
@@ -89,7 +89,7 @@ docker logs --tail 100 AWBotNest_V2
 以下方法仅供系统所有者或获授权的服务器管理员使用：
 
 1. 先通过防火墙、反向代理访问限制等方式，让初始化期间只有你能访问网页。清空认证字段后，不能把初始化入口敞开给其他人。
-2. 停止 AWBotHub。Docker 示例：`docker stop AWBotNest_V2`。
+2. 停止 AWBotHub。Docker 示例：`docker stop AWBotHub`。
 3. 找到实际挂载的 `data/config.json`，复制一份到安全位置，使用新的备份文件名，避免覆盖旧备份。
 4. 用文本编辑器打开原 `config.json`，**只将以下三个已有字段的值改为空字符串**，保留其他字段、逗号和 JSON 结构：
 
@@ -101,7 +101,7 @@ docker logs --tail 100 AWBotNest_V2
 
    这只是字段片段，不是让你用这三行替换整个文件。不要手工填明文密码到 `admin_password_hash`。同时清空管理令牌，是为了让原来的网页登录令牌失效。
 
-5. 保存后启动容器：`docker start AWBotNest_V2`。
+5. 保存后启动容器：`docker start AWBotHub`。
 6. 打开自己的网页，应出现“首次使用 · 设置管理员账号”，立即设置新用户名和强密码。
 7. 确认登录正常后，再恢复原有的网络访问规则。
 
@@ -248,9 +248,9 @@ docker logs --tail 100 AWBotNest_V2
 先执行：
 
 ```bash
-docker stats AWBotNest_V2 --no-stream
-docker top AWBotNest_V2 -eo pid,ppid,rss,comm
-docker inspect AWBotNest_V2 --format 'StartedAt={{.State.StartedAt}} RestartCount={{.RestartCount}} OOMKilled={{.State.OOMKilled}}'
+docker stats AWBotHub --no-stream
+docker top AWBotHub -eo pid,ppid,rss,comm
+docker inspect AWBotHub --format 'StartedAt={{.State.StartedAt}} RestartCount={{.RestartCount}} OOMKilled={{.State.OOMKilled}}'
 ```
 
 进一步检查方式见 [更新与维护](Maintenance.md) 的内存部分。重点判断：
