@@ -132,6 +132,8 @@ curl -fsSL https://raw.githubusercontent.com/AWdress/AWBotHub/main/install.sh | 
 
 这些变量是安装脚本参数，不是在网页里填写的项目。`AWBOTNEST_DIR` 可指定安装目录，`AWBOTNEST_IMAGE` 可指定镜像标签。已有安装再次运行时，要使用原目录和原网络、端口设置，不要随手一路回车改掉原来的部署方式。
 
+如果你维护过自定义 Compose 配置，一键安装会生成单独的覆盖文件，替换系统服务的端口和网络模式，保留其他服务及顶层网络。这种情况下需要 Docker Compose **2.24.4 或更新版本**；版本过旧或无法识别时，脚本会提示并停止，不会先改写已有覆盖文件。按提示升级 Compose 后再重试，原数据目录不要删除。
+
 ## 4. 手动 Docker Compose 部署
 
 以下步骤要求已经安装 Docker 和 Docker Compose。可先检查：
