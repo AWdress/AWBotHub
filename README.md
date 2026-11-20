@@ -6,7 +6,7 @@
   一个支持 Telegram Bot 与用户账号的插件管理系统。安装、配置、更新和运行插件都可以在网页里完成。
 </div>
 
-第一次使用可从 [详细使用手册](docs/guide/Home.md) 开始。遇到问题时，请先查看 [常见问题](#常见问题) 和运行日志。
+第一次使用可从 [详细使用手册（Wiki）](https://github.com/AWdress/AWBotHub/wiki) 开始。遇到问题时，请先查看 [常见问题](#常见问题) 和运行日志。
 
 ## 系统宣传片
 
@@ -124,4 +124,4 @@ bridge 模式可同时设置 `AWBOTNEST_PORT`（宿主映射端口）和 `AWBOTN
 
 ---
 
-完整使用说明见 [详细使用手册](docs/guide/Home.md)，接口与插件开发说明见 [docs/](docs/)。
+完整使用说明见 [详细使用手册（Wiki）](https://github.com/AWdress/AWBotHub/wiki)，接口与插件开发说明见 [docs/](docs/)。
