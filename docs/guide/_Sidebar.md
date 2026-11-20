@@ -25,8 +25,6 @@
 
 ---
 
-适用版本：**v2.0.2.11**
-
-更新日期：2026-11-08
+更新日期：2026-11-20
 
 [版本发布](https://github.com/AWdress/AWBotHub/releases) · [问题反馈](https://github.com/AWdress/AWBotHub/issues)
