@@ -37,6 +37,8 @@ https://github.com/user-attachments/assets/84ee9d34-f2c6-4883-8931-bebb4851f3e8
 
 需要使用内置范围之外的插件，请先准备激活码。授权为长期授权，绑定一个系统安装；未授权时仍可使用上述内置插件。已有系统更新前请先备份，未授权的其他插件会停止运行，但设置和数据会保留，详见[系统授权](docs/guide/系统授权.md)。
 
+已有 Pro 安装更新前，请先阅读[授权升级说明](docs/授权升级.md)：长期授权权益不变，保留原数据和部署配置；Linux 手动 Compose 部署须补充主机标识的只读挂载，一键安装会自动检测。没有可用主机标识时，网页管理和免费内置插件仍可使用，但不能完成 Pro 验证。完成新版授权验证后，不要直接退回旧客户端或旧授权服务。
+
 Docker 镜像为 `awdress/awbothub`。使用 `awdress/awbothub:latest` 跟随更新；需要固定版本时，从[发行版](https://github.com/AWdress/AWBotHub/releases)选择所需版本，把 `latest` 换成对应的镜像标签。Docker 会在 Linux x86_64（`amd64`）和 ARM64（`arm64`）中自动选择，无需更换镜像名。64 位 ARM 服务器、NAS 和树莓派可使用；不支持 32 位 ARM 系统。插件的第三方依赖仍需支持对应架构。
 
 镜像已包含 CloakBrowser 组件 **0.5.12** 和对应架构的浏览器内核，首次使用不需要另外安装组件、下载内核或填写 CloakBrowser Key。AMD64 包含 Stable **156.0.8078.47.1** 与 Preview **156.0.8078.47.3**，ARM64 包含 Stable **155.0.8059.39.2** 与 Preview **156.0.8078.47.1**。组件和内核随系统镜像更新；数据目录中已有的缓存会保留，不会因更新镜像自动清空。使用说明见 [Cookie 与浏览器](docs/guide/Cookies-and-Browser.md)。
