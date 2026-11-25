@@ -10,11 +10,11 @@
 
 ## 系统宣传片
 
-2 分 30 秒了解系统主要功能，含配乐，无旁白。
+78 秒了解 AWBotHub 的主要功能与界面。
 
-https://github.com/user-attachments/assets/84ee9d34-f2c6-4883-8931-bebb4851f3e8
+https://github.com/user-attachments/assets/0d3c855a-1549-472e-ba4e-a4c6edf9e5af
 
-[下载 1080p 原片](https://github.com/AWdress/AWBotHub/releases/download/v2.0.2.7/AWBotNest-Promo-1080p.mp4)
+[下载 1080p 原片](https://www.awhub.cn/assets/awbothub-demo.mp4?v=20261120)
 
 ## 它能做什么
 
